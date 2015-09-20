@@ -1,17 +1,37 @@
 {% extends "layout/base.html" %}
 
 {% block content %}
-  <div class="container">
-    <div class="starter-template">
-      <h1>Bootstrap starter template</h1>
-      <p class="lead">
-        Use this document as a way to quickly start any new project.<br>
-        All you get is this text and a mostly barebones HTML document.
-      </p>
-    </div>
-  </div>
-{% endblock %}
 
-{% block footer %}
-  {% include "include/footer.html" %}
+<div class = "container">
+
+  <h1 style="font-family:georgia">Eldorado</h1>
+  <h2 style="font-family:georgia">Where do you want to open your business in</h2>          
+  <form action="/output" method="GET">
+    <div class="form-group">
+      <input type="text" id="city" name='city' placeholder="Choose a city">
+    </div>
+
+    <div>
+      <button type="submit" class="btn btn-default btn-lg">Let's find out!</button>
+    </div>
+  </form>
+
+<!--         <div class="dropdown">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose a city
+          <span class="caret"></span></button>
+
+                <ul class="dropdown-menu">
+                  <li><a href="#" id = "city" value = "San_Francisco">San Francisco, CA</a></li>
+                  <li><a href="#" id = "city" value = "Seattle">Seattle, WA</a></li>
+                  <li><a href="#" id = "city" value = "New York">New York, NY</a></li>
+                  <li><a href="#" id = "city" value = "Austin">Austin, TX</a></li>
+                  <li><a href="#" id = "city" value = "Portland" >Portland, OR</a></li>
+                  <li><a href="#" id = "city" value = "St.Louis" >St. Louis, MO</a></li>
+                  <li><a href="#" id = "city" value = "Nashville">Nashville, TN</a></li>
+                </ul>
+
+        </div>
+  -->   
+</div>
+
 {% endblock %}
