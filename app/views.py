@@ -7,7 +7,7 @@ from app import app
 @app.route('/index')
 def index():
     # Renders index.html.
-    return render_template('index.html')
+    return render_template('index.htm')
 
 @app.route('/output')
 def cities_output():
