@@ -8,7 +8,7 @@ class Config:
 
     # MySQL Database Settings
     MYSQL_DATABASE_HOST = 'localhost'
-    MYSQL_DATABASE_PORT = 3306
+    MYSQL_DATABASE_PORT = 3307
     MYSQL_DATABASE_USER = os.environ.get('MYSQL_DATABASE_USER') or None
     MYSQL_DATABASE_PASSWORD = os.environ.get('MYSQL_DATABASE_PASSWORD') or None
     MYSQL_DATABASE_DB = None
@@ -27,7 +27,8 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     # Add settings for production here.
     DEBUG = False
-
+    # This will be different for production:
+    # MYSQL_DATABASE_HOST = 'localhost'
 
 config = {
     'development': DevelopmentConfig,
