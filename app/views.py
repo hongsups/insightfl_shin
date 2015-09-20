@@ -9,7 +9,13 @@ def index():
     # Renders index.html.
     return render_template('index.html')
 
+@app.route('/output')
+def cities_output():
+	return render_template('output.html')
+
 @app.route('/author')
 def author():
     # Renders author.html.
     return render_template('author.html')
+
+
