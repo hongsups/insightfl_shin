@@ -1,363 +1,231 @@
-var base_tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 18,
-  minZoom: 1,
-  attribution: 'Map data (c) <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-});
 
-var baseLayer = {
-  "Base Layer": base_tile
+var city_coords = {
+  "Baltimore": [39.2903848, -76.6121893],
+  "Boston": [42.3600825, -71.0588801], 
+  "Chicago": [41.8781136, -87.6297982], 
+  "Detroit": [42.331427, -83.0457538], 
+  "Los_Angeles": [34.0522342, -118.2436849],
+  "New_York": [40.7127837, -74.0059413], 
+  "Oakland": [37.8043637, -122.2711137], 
+  "San_Francisco": [37.7749295, -122.4194155],
+  "Seattle": [47.6062095, -122.3320708],
+  "Washington": [38.9071923, -77.0368707]
 };
 
-/*
-addition of the wms layers
-*/
+// var city_name = '{{city_name}}';
+// console.log(city_name)
+
+var lat = city_coords[city_name][0];
+var lng = city_coords[city_name][1];
+
+queue()
+    .defer(d3.json, '/static/data23.json')
+    .defer(d3.json, '/static/data45.json')
+    .defer(d3.json, '/static/data51.json')
+    .defer(d3.json, '/static/data52.json')
+    .defer(d3.json, '/static/data53.json')
+    .defer(d3.json, '/static/data61.json')
+    .defer(d3.json, '/static/data71.json')
+    .defer(d3.json, '/static/js/zip_cities_final.json')
+    .await(makeMap);
+
+function onEachFeature(feature, layer) {
+    // does this feature have a property named popupContent?
+    if (feature.properties && feature.properties.popupContent) {
+        layer.bindPopup(feature.properties.popupContent);
+        }
+    };
 
 
+// var onEachFeature = function(feature, layer) {
+//     // does this feature have a property named popupContent?
+//     if (feature.properties && feature.properties.popupContent) {
+//         layer.bindPopup(feature.properties.popupContent);
+//         }
 
-/*
-addition of the tile layers
-*/
+//     layer.setStyle(defaultStyle);
+
+//     function(layer) {
+//       // Create a mouseover event
+//       layer.on("mouseover", function (e) {
+//         // Change the style to the highlighted version
+//         layer.setStyle(highlightStyle);
+//         });
+            
+//     };
 
 
-/*
-list of layers to be added
-*/
-var layer_list = {
+  function makeMap(error, data23, data45, data51, data52, data53, data61, data71, gjson_1) {
 
+    function matchKey(datapoint, key_variable){
+        if (typeof key_variable[0][datapoint] === 'undefined') {
+            return null;
+        }
+        else {
+            return parseFloat(key_variable[0][datapoint]);
+        };
+    };
+    
+    var color = d3.scale.threshold()
+        .domain([0, 1, 2, 3])
+        // .range(['#EDF8FB', '#BFD3E6', '#9EBCDA', '#8C96C6', '#8C6BB1']);
+        .range(['#D4B9DA', '#C994C7', '#DF65B0', '#DD1C77', '#980043']);
+
+    // var map = L.map('map').setView([37.769959, -122.448679], 12);
+    var map = L.map('map').setView([lat,lng], 12);
+
+    // Stamen Layer
+    var stamenUrl = 'http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png';
+    var stamenAttribution = 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, under <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a>. Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://creativecommons.org/licenses/by-sa/3.0">CC BY SA</a>.';
+    var stamenLayer = new L.TileLayer(stamenUrl, {maxZoom: 18, attribution: stamenAttribution});
+    map.addLayer(stamenLayer);
+
+    // L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    //     maxZoom: 18,
+    //     minZoom: 1,
+    //     attribution: 'Map data (c) <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    // }).addTo(map);
+    function style_23(feature) {
+        return {
+          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data23)),
+          weight: 1,
+          opacity: 0.4,
+          color: 'black',
+          fillOpacity: 0.7
+        };
+    }
+    
+    function style_45(feature) {
+        return {
+          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data45)),
+          weight: 1,
+          opacity: 0.4,
+          color: 'black',
+          fillOpacity: 0.7
+        };
+    }
+
+    function style_51(feature) {
+        return {
+          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data51)),
+          weight: 1,
+          opacity: 0.4,
+          color: 'black',
+          fillOpacity: 0.7
+        };
+    }
+    function style_52(feature) {
+        return {
+          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data52)),
+          weight: 1,
+          opacity: 0.4,
+          color: 'black',
+          fillOpacity: 0.7
+        };
+    }
+    function style_53(feature) {
+        return {
+          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data53)),
+          weight: 1,
+          opacity: 0.4,
+          color: 'black',
+          fillOpacity: 0.7
+        };
+    }
+    function style_61(feature) {
+        return {
+          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data61)),
+          weight: 1,
+          opacity: 0.4,
+          color: 'black',
+          fillOpacity: 0.7
+        };
+    }
+    function style_71(feature) {
+        return {
+          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data71)),
+          weight: 1,
+          opacity: 0.4,
+          color: 'black',
+          fillOpacity: 0.7
+        };
+    }
+    
+    var highlightStyle = {
+      
+    }
+
+    var gJson_layer_23 = L.geoJson(gjson_1, {style: style_23, onEachFeature: onEachFeature});
+    var gJson_layer_45 = L.geoJson(gjson_1, {style: style_45, onEachFeature: onEachFeature});
+    var gJson_layer_51 = L.geoJson(gjson_1, {style: style_51, onEachFeature: onEachFeature});
+    var gJson_layer_52 = L.geoJson(gjson_1, {style: style_52, onEachFeature: onEachFeature});
+    var gJson_layer_53 = L.geoJson(gjson_1, {style: style_53, onEachFeature: onEachFeature});
+    var gJson_layer_61 = L.geoJson(gjson_1, {style: style_61, onEachFeature: onEachFeature});
+    var gJson_layer_71 = L.geoJson(gjson_1, {style: style_71, onEachFeature: onEachFeature});
+
+    gJson_layer_53.addTo(map)
+
+    var overlayMaps = {
+      "Construction": gJson_layer_23,
+      "Retail": gJson_layer_45,
+      "Media/Publishing": gJson_layer_51,
+      "Finance": gJson_layer_52,
+      "Real Estate": gJson_layer_53,
+      "Education": gJson_layer_61,
+      "Arts": gJson_layer_71
+    };
+
+    var baseMaps = {
+
+    };
+
+    // L.control.layers(overlayMaps).addTo(map);
+    lcontrol = L.control.layers(baseMaps,overlayMaps).addTo(map);
+    // lcontrol.removeLayer(gJson_layer_45) 
+
+    // All about legend
+    // var legend = L.control({position: 'topright'});
+    var legend = L.control({position: 'bottomleft'});
+
+    legend.onAdd = function (map) {var div = L.DomUtil.create('div', 'legend'); return div};
+
+    legend.addTo(map);
+
+    var x = d3.scale.linear()
+    .domain([0, 3])
+    .range([0, 300]);
+
+    var xAxis = d3.svg.axis()
+      .scale(x)
+      .orient("top")
+      .tickSize(1)
+      .tickValues([0, 1, 2, 3]);
+
+    var svg = d3.select(".legend.leaflet-control").append("svg")
+      .attr("id", 'legend')
+      .attr("width", 350)
+      .attr("height", 40);
+
+    var g = svg.append("g")
+      .attr("class", "key")
+      .attr("transform", "translate(25,16)");
+
+    g.selectAll("rect")
+      .data(color.range().map(function(d, i) {
+        return {
+          x0: i ? x(color.domain()[i - 1]) : x.range()[0],
+          x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
+          z: d
+        };
+      }))
+    .enter().append("rect")
+      .attr("height", 10)
+      .attr("x", function(d) { return d.x0; })
+      .attr("width", function(d) { return d.x1 - d.x0; })
+      .style("fill", function(d) { return d.z; });
+
+    g.call(xAxis).append("text")
+      .attr("class", "caption")
+      .attr("y", 21)
+      .text('Business Growth Index');
 };
-
-/*
-Bounding box.
-*/
-var southWest = L.latLng(-90, -180),
-  northEast = L.latLng(90, 180),
-  bounds = L.latLngBounds(southWest, northEast);
-
-/*
-Creates the map and adds the selected layers
-*/
-var map = L.map('folium_ce46d322d9bb421798095ba50623abfb', {
- center:[37.74, -122.45],
- zoom: 12,
- maxBounds: bounds,
- layers: [base_tile]
-});
-
-L.control.layers(baseLayer, layer_list).addTo(map);
-
-//cluster group
-var clusteredmarkers = L.markerClusterGroup();
-//section for adding clustered markers
-
-//add the clustered markers to the group anyway
-map.addLayer(clusteredmarkers);
-
-
-
-
-var circle_1 = L.circle([37.7786871, -122.4212424], 300, {
-  color: '#DF65B0 ',
-  fillColor: '#DF65B0 ',
-  fillOpacity: 0.7
-  });
-
-map.addLayer(circle_1)
-
-var circle_2 = L.circle([37.7726402, -122.4099154], 500, {
-                      color: '#980043 ',
-                      fillColor: '#980043 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_2)
-
-var circle_3 = L.circle([37.7911148, -122.4021273], 300, {
-                      color: '#DF65B0 ',
-                      fillColor: '#DF65B0 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_3)
-
-var circle_4 = L.circle([37.7890183, -122.3915063], 500, {
-                      color: '#980043 ',
-                      fillColor: '#980043 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_4)
-
-var circle_5 = L.circle([37.7618242, -122.3985871], 400, {
-                      color: '#DD1C77 ',
-                      fillColor: '#DD1C77 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_5)
-
-var circle_6 = L.circle([37.7909427, -122.4084994], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_6)
-
-var circle_7 = L.circle([37.7929789, -122.4212424], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_7)
-
-var circle_8 = L.circle([37.7485824, -122.4184108], 200, {
-                      color: '#C994C7 ',
-                      fillColor: '#C994C7 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_8)
-
-var circle_9 = L.circle([37.7959362, -122.4000032], 200, {
-                      color: '#C994C7 ',
-                      fillColor: '#C994C7 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_9)
-
-var circle_10 = L.circle([37.7225491, -122.4410618], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_10)
-
-var circle_11 = L.circle([37.7561438, -122.4325682], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_11)
-
-var circle_12 = L.circle([37.7877522, -122.4382307], 0, {
-                      color: '#F1EEF6 ',
-                      fillColor: '#F1EEF6 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_12)
-
-var circle_13 = L.circle([37.7432421, -122.497668], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_13)
-
-var circle_14 = L.circle([37.7717185, -122.4438929], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_14)
-
-var circle_15 = L.circle([37.7822891, -122.463708], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_15)
-
-var circle_16 = L.circle([37.7813454, -122.497668], 0, {
-                      color: '#F1EEF6 ',
-                      fillColor: '#F1EEF6 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_16)
-
-var circle_17 = L.circle([37.7597481, -122.4750292], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_17)
-
-var circle_18 = L.circle([37.8020405, -122.4382307], 0, {
-                      color: '#F1EEF6 ',
-                      fillColor: '#F1EEF6 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_18)
-
-var circle_19 = L.circle([37.7304167, -122.384425], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_19)
-
-var circle_20 = L.circle([37.734646, -122.463708], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_20)
-
-var circle_21 = L.circle([37.793323, -122.4665384], 200, {
-                      color: '#C994C7 ',
-                      fillColor: '#C994C7 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_21)
-
-var circle_22 = L.circle([37.7401042, -122.4382307], 0, {
-                      color: '#F1EEF6 ',
-                      fillColor: '#F1EEF6 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_22)
-
-var circle_23 = L.circle([37.7181398, -122.4863492], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_23)
-
-var circle_24 = L.circle([37.8059887, -122.4099154], 300, {
-                      color: '#DF65B0 ',
-                      fillColor: '#DF65B0 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_24)
-
-var circle_25 = L.circle([37.7202042, -122.4099154], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_25)
-
-var circle_26 = L.circle([37.7748363, -122.3872576], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_26)
-
-var circle_27 = L.circle([37.7729273, -122.2143323], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_27)
-
-var circle_28 = L.circle([37.8015517, -122.2143323], 0, {
-                      color: '#F1EEF6 ',
-                      fillColor: '#F1EEF6 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_28)
-
-var circle_29 = L.circle([37.7355719, -122.1802812], 0, {
-                      color: '#F1EEF6 ',
-                      fillColor: '#F1EEF6 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_29)
-
-var circle_30 = L.circle([37.7554905, -122.1462193], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_30)
-
-var circle_31 = L.circle([37.7944092, -122.2455364], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_31)
-
-var circle_32 = L.circle([37.8134679, -122.307917], 200, {
-                      color: '#C994C7 ',
-                      fillColor: '#C994C7 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_32)
-
-var circle_33 = L.circle([37.8104485, -122.2398636], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_33)
-
-var circle_34 = L.circle([37.8336281, -122.2029832], 0, {
-                      color: '#F1EEF6 ',
-                      fillColor: '#F1EEF6 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_34)
-
-var circle_35 = L.circle([37.8113159, -122.2682245], 100, {
-                      color: '#D4B9DA ',
-                      fillColor: '#D4B9DA ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_35)
-
-var circle_36 = L.circle([37.7816835, -122.1817002], 0, {
-                      color: '#F1EEF6 ',
-                      fillColor: '#F1EEF6 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_36)
-
-var circle_37 = L.circle([37.7347438, -122.2143323], 0, {
-                      color: '#F1EEF6 ',
-                      fillColor: '#F1EEF6 ',
-                      fillOpacity: 0.7
-                      });
-
-map.addLayer(circle_37)
-
-
-
-
-
-
-
-
-
-
-

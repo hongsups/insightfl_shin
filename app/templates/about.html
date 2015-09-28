@@ -1,0 +1,18 @@
+{% extends "layout/base.html" %}
+
+{% block header %}
+
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/about.css')}}"/>
+
+{% endblock %}
+
+{% block content %}
+<div class = "container">
+  <iframe src="//www.slideshare.net/slideshow/embed_code/key/AlMkDd194q4Rvy" width="800" height="600" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> 
+</div>
+
+{% endblock %}
+
+{% block script %}
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{% endblock %}

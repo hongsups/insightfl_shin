@@ -1,24 +1,73 @@
 {% extends "layout/base.html" %}
 
 {% block header %}
+
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
-   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
-   <link rel="stylesheet" href="https://rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css">
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css">
-   <link rel="stylesheet" href="https://birdage.github.io/Leaflet.awesome-markers/dist/leaflet.awesome.rotate.css">
    <link rel="stylesheet" href="{{ url_for('static', filename='css/output.css')}}"/>
 
 {% endblock %}
 
 {% block content %}
-   <div class="folium-map" id="folium_ce46d322d9bb421798095ba50623abfb" style="width: 100%; height: 100%"></div>
+
+    <div id="map" style="width: 100%; height: 100%"></div>
+<!--     <div class ="overlay">
+        <label>
+            <input type="checkbox" value="Retail" checked> Retail
+        </label><br>
+        <label>
+            <input type="checkbox" value="Media_Publishing" checked> Media/Publishing
+        </label><br>
+        <label>
+            <input type="checkbox" value="Real_Estate" checked> Real Estate
+        </label><br>
+        <label>
+            <input type="checkbox" value="Law_Science_Ads" checked> Law/Science/Ads
+        </label><br>
+        <label>
+            <input type="checkbox" value="Health" checked> Health
+        </label><br>
+        <label>
+            <input type="checkbox" value="Accomm_Food" checked> Accomm/Food
+        </label>
+    </div>
+ -->
 {% endblock %}
 
 {% block script %}
+   <script>
+      var city_name = '{{city_name}}';
+
+      var mapmargin = 50;
+      $('#map').css("height", ($(window).height() - mapmargin));
+      $(window).on("resize", resize);
+      resize();
+      function resize(){
+
+        if($(window).width()>=980){
+            $('#map').css("height", ($(window).height() - mapmargin));    
+            $('#map').css("margin-top",50);
+        }else{
+            $('#map').css("height", ($(window).height() - (mapmargin+12)));    
+            $('#map').css("margin-top",-21);
+        }
+
+      }
+
+      // $( "input" ).click(function( event ) {
+      //   layerClicked = window[event.target.value];
+      //   if (L.hasLayer(layerClicked)) {
+      //     L.removeLayer(layerClicked);
+      //     }
+
+      //   else{
+      //     L.addLayer(layerClicked);
+      //     } ; 
+      // });
+   </script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
-   <script src="https://rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js"></script>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js" charset="utf-8"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
 {% endblock %}

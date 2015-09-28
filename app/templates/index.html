@@ -1,41 +1,43 @@
 {% extends "layout/base.html" %}
 
 {% block header %}
+  {{super()}}
    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-
+<br>
 <div class = "container">
 
-  <h1 style="font-family:georgia">Eldorado</h1>
-  <h2 style="font-family:georgia">Where do you want to open your business in</h2>          
-  <form action="/output" method="GET">
-    <div class="form-group">
-      <input type="text" id="city" name='city' placeholder="Choose a city">
-    </div>
+  <h1 style="font-family: Georgia">Where do you want to open your new business?</h2> 
+  <br><br><br>       
+  <form action="/output" method="POST">
+        <select name = "cities">
+          <option value = "San_Francisco">San Francisco, CA</option>
+          <option value = "Los_Angeles">Los Angeles, CA</option>
+          <option value = "New_York">New York, NY</option> 
+          <option value = "Chicago">Chicago, IL</option> 
+          <option value = "Seattle">Seattle, WA</option> 
+          <option value = "Boston">Boston, MA</option> 
+          <option value = "Washington">Washington, D.C.</option> 
+          <option value = "Oakland">Oakland, CA</option> 
+          <option value = "Baltimore">Baltimore, MD</option> 
+          <option value = "Detroit">Detroit, MI</option> 
+        </select>
 
+    <br><br><br>
+    
     <div>
-      <button type="submit" class="btn btn-default btn-lg">Let's find out!</button>
+      <button type="submit" class="btn btn-default btn-lg" id="button1">Let's find out!</button>
     </div>
+
   </form>
-
-<!--         <div class="dropdown">
-          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Choose a city
-          <span class="caret"></span></button>
-
-                <ul class="dropdown-menu">
-                  <li><a href="#" id = "city" value = "San_Francisco">San Francisco, CA</a></li>
-                  <li><a href="#" id = "city" value = "Seattle">Seattle, WA</a></li>
-                  <li><a href="#" id = "city" value = "New York">New York, NY</a></li>
-                  <li><a href="#" id = "city" value = "Austin">Austin, TX</a></li>
-                  <li><a href="#" id = "city" value = "Portland" >Portland, OR</a></li>
-                  <li><a href="#" id = "city" value = "St.Louis" >St. Louis, MO</a></li>
-                  <li><a href="#" id = "city" value = "Nashville">Nashville, TN</a></li>
-                </ul>
-
-        </div>
-  -->   
 </div>
 
 {% endblock %}
+
+{% block script %}
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{% endblock %}
+
