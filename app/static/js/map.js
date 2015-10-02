@@ -66,10 +66,40 @@ function onEachFeature(feature, layer) {
         };
     };
     
-    var color = d3.scale.threshold()
-        .domain([0, 1, 2, 3])
-        // .range(['#EDF8FB', '#BFD3E6', '#9EBCDA', '#8C96C6', '#8C6BB1']);
+    var color_23 = d3.scale.threshold()
+        .domain([0, 1, 2, 3, 4])
         .range(['#D4B9DA', '#C994C7', '#DF65B0', '#DD1C77', '#980043']);
+
+    var color_45 = d3.scale.threshold()
+        .domain([0, 1, 2, 3, 4])
+        .range(['#FBEAEA', '#EC9D9D', '#DE5151', '#B22222', '#8B1A1A']);
+
+    var color_51 = d3.scale.threshold()
+        .domain([0, 1, 2, 3, 4])
+        .range(['#FFFBE5', '#FFEF99', '#FFE34D', '#FFD700', '#EEC900']);
+
+    var color_52 = d3.scale.threshold()
+        .domain([0, 1, 2, 3, 4])
+        .range(['#F0F7ED', '#CCE4C1', '#A8D196', '#84BE6A', '#3B5E2B']);
+
+    var color_53 = d3.scale.threshold()
+        .domain([0, 1, 2, 3, 4])
+        .range(['#E6E7FF', '#A8ACFF', '#6B72FE', '#2E37FE', '#2F2F4F']);
+
+    var color_61 = d3.scale.threshold()
+        .domain([0, 1, 2, 3, 4])
+        .range(['#E9F6FB', '#C8E9F6', '#A8DBF0', '#87CEEB', '#38B0DE']);
+
+    var color_71 = d3.scale.threshold()
+        .domain([0, 1, 2, 3, 4])
+        .range(['#F5E5FF', '#E3B9FF', '#D18CFF', '#BF5FFF', '#A020F0']);
+
+    var color_def = d3.scale.threshold()
+        .domain([0, 1, 2, 3, 4])
+        .range(['#F3F2F2', '#E6E4E4', '#DAD7D7', '#CDC9C9', '#8B8989']);
+
+
+    // 23, 45, 51, 52, 53, 61, 71
 
     // var map = L.map('map').setView([37.769959, -122.448679], 12);
     var map = L.map('map').setView([lat,lng], 12);
@@ -87,7 +117,7 @@ function onEachFeature(feature, layer) {
     // }).addTo(map);
     function style_23(feature) {
         return {
-          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data23)),
+          fillColor: color_23(matchKey(feature.properties.ZCTA5CE10, data23)),
           weight: 1,
           opacity: 0.4,
           color: 'black',
@@ -97,7 +127,7 @@ function onEachFeature(feature, layer) {
     
     function style_45(feature) {
         return {
-          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data45)),
+          fillColor: color_23(matchKey(feature.properties.ZCTA5CE10, data45)),
           weight: 1,
           opacity: 0.4,
           color: 'black',
@@ -107,7 +137,7 @@ function onEachFeature(feature, layer) {
 
     function style_51(feature) {
         return {
-          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data51)),
+          fillColor: color_23(matchKey(feature.properties.ZCTA5CE10, data51)),
           weight: 1,
           opacity: 0.4,
           color: 'black',
@@ -116,7 +146,7 @@ function onEachFeature(feature, layer) {
     }
     function style_52(feature) {
         return {
-          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data52)),
+          fillColor: color_23(matchKey(feature.properties.ZCTA5CE10, data52)),
           weight: 1,
           opacity: 0.4,
           color: 'black',
@@ -125,7 +155,7 @@ function onEachFeature(feature, layer) {
     }
     function style_53(feature) {
         return {
-          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data53)),
+          fillColor: color_23(matchKey(feature.properties.ZCTA5CE10, data53)),
           weight: 1,
           opacity: 0.4,
           color: 'black',
@@ -134,7 +164,7 @@ function onEachFeature(feature, layer) {
     }
     function style_61(feature) {
         return {
-          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data61)),
+          fillColor: color_23(matchKey(feature.properties.ZCTA5CE10, data61)),
           weight: 1,
           opacity: 0.4,
           color: 'black',
@@ -143,7 +173,7 @@ function onEachFeature(feature, layer) {
     }
     function style_71(feature) {
         return {
-          fillColor: color(matchKey(feature.properties.ZCTA5CE10, data71)),
+          fillColor: color_23(matchKey(feature.properties.ZCTA5CE10, data71)),
           weight: 1,
           opacity: 0.4,
           color: 'black',
@@ -192,18 +222,18 @@ function onEachFeature(feature, layer) {
     legend.addTo(map);
 
     var x = d3.scale.linear()
-    .domain([0, 3])
-    .range([0, 300]);
+    .domain([0, 4])
+    .range([0, 200]);
 
     var xAxis = d3.svg.axis()
       .scale(x)
       .orient("top")
       .tickSize(1)
-      .tickValues([0, 1, 2, 3]);
+      .tickValues([0, 1, 2, 3, 4]);
 
     var svg = d3.select(".legend.leaflet-control").append("svg")
       .attr("id", 'legend')
-      .attr("width", 350)
+      .attr("width", 250)
       .attr("height", 40);
 
     var g = svg.append("g")
@@ -211,10 +241,10 @@ function onEachFeature(feature, layer) {
       .attr("transform", "translate(25,16)");
 
     g.selectAll("rect")
-      .data(color.range().map(function(d, i) {
+      .data(color_23.range().map(function(d, i) {
         return {
-          x0: i ? x(color.domain()[i - 1]) : x.range()[0],
-          x1: i < color.domain().length ? x(color.domain()[i]) : x.range()[1],
+          x0: i ? x(color_23.domain()[i - 1]) : x.range()[0],
+          x1: i < color_23.domain().length ? x(color_23.domain()[i]) : x.range()[1],
           z: d
         };
       }))
