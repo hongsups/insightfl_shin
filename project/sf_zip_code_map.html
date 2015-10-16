@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<head>
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+   <link rel="stylesheet" href="https://rawgit.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.css">
+   <script src="https://rawgithub.com/lvoogdt/Leaflet.awesome-markers/2.0/develop/dist/leaflet.awesome-markers.js"></script>
+
+
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.Default.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/MarkerCluster.css">
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster-src.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/0.4.0/leaflet.markercluster.js"></script>
+
+   <link rel="stylesheet" href="https://birdage.github.io/Leaflet.awesome-markers/dist/leaflet.awesome.rotate.css">
+
+   
+   
+   
+   
+
+   <style>
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #map {
+        position:absolute;
+        top:0;
+        bottom:0;
+        right:0;
+        left:0;
+      }
+
+   </style>
+</head>
+
+<body>
+
+   <div class="folium-map" id="folium_b9db955c59a34617bc1ee3f70456ea4c" style="width: 100%; height: 100%"></div>
+
+   <script>
+
+      
+
+      var base_tile = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          minZoom: 1,
+          attribution: 'Map data (c) <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+      });
+
+      var baseLayer = {
+        "Base Layer": base_tile
+      };
+
+      /*
+      addition of the wms layers
+      */
+
+      
+
+      /*
+      addition of the tile layers
+      */
+      
+
+      /*
+      list of layers to be added
+      */
+      var layer_list = {
+      
+      };
+
+      /*
+      Bounding box.
+      */
+      var southWest = L.latLng(-90, -180),
+          northEast = L.latLng(90, 180),
+          bounds = L.latLngBounds(southWest, northEast);
+
+      /*
+      Creates the map and adds the selected layers
+      */
+      var map = L.map('folium_b9db955c59a34617bc1ee3f70456ea4c', {
+                                       center:[37.7786871, -122.4212424],
+                                       zoom: 13,
+                                       maxBounds: bounds,
+                                       layers: [base_tile]
+                                     });
+
+      L.control.layers(baseLayer, layer_list).addTo(map);
+
+      //cluster group
+      var clusteredmarkers = L.markerClusterGroup();
+      //section for adding clustered markers
+      
+      //add the clustered markers to the group anyway
+      map.addLayer(clusteredmarkers);
+
+      
+
+      
+      var circle_1 = L.circle([37.7786871, -122.4212424], 100, {
+                            color: 'black',
+                            fillColor: 'black',
+                            fillOpacity: 0.6
+                            });
+      
+      map.addLayer(circle_1)
+      
+      var circle_2 = L.circle([37.7786871, -122.4212424], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_2.bindPopup("94102");
+      circle_2._popup.options.maxWidth = 300;
+      map.addLayer(circle_2)
+      
+      var circle_3 = L.circle([37.7726402, -122.4099154], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_3.bindPopup("94103");
+      circle_3._popup.options.maxWidth = 300;
+      map.addLayer(circle_3)
+      
+      var circle_4 = L.circle([37.7911148, -122.4021273], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_4.bindPopup("94104");
+      circle_4._popup.options.maxWidth = 300;
+      map.addLayer(circle_4)
+      
+      var circle_5 = L.circle([37.7890183, -122.3915063], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_5.bindPopup("94105");
+      circle_5._popup.options.maxWidth = 300;
+      map.addLayer(circle_5)
+      
+      var circle_6 = L.circle([37.7618242, -122.3985871], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_6.bindPopup("94107");
+      circle_6._popup.options.maxWidth = 300;
+      map.addLayer(circle_6)
+      
+      var circle_7 = L.circle([37.7909427, -122.4084994], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_7.bindPopup("94108");
+      circle_7._popup.options.maxWidth = 300;
+      map.addLayer(circle_7)
+      
+      var circle_8 = L.circle([37.7929789, -122.4212424], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_8.bindPopup("94109");
+      circle_8._popup.options.maxWidth = 300;
+      map.addLayer(circle_8)
+      
+      var circle_9 = L.circle([37.7485824, -122.4184108], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_9.bindPopup("94110");
+      circle_9._popup.options.maxWidth = 300;
+      map.addLayer(circle_9)
+      
+      var circle_10 = L.circle([37.7959362, -122.4000032], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_10.bindPopup("94111");
+      circle_10._popup.options.maxWidth = 300;
+      map.addLayer(circle_10)
+      
+      var circle_11 = L.circle([37.7225491, -122.4410618], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_11.bindPopup("94112");
+      circle_11._popup.options.maxWidth = 300;
+      map.addLayer(circle_11)
+      
+      var circle_12 = L.circle([37.7561438, -122.4325682], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_12.bindPopup("94114");
+      circle_12._popup.options.maxWidth = 300;
+      map.addLayer(circle_12)
+      
+      var circle_13 = L.circle([37.7877522, -122.4382307], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_13.bindPopup("94115");
+      circle_13._popup.options.maxWidth = 300;
+      map.addLayer(circle_13)
+      
+      var circle_14 = L.circle([37.7432421, -122.497668], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_14.bindPopup("94116");
+      circle_14._popup.options.maxWidth = 300;
+      map.addLayer(circle_14)
+      
+      var circle_15 = L.circle([37.7717185, -122.4438929], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_15.bindPopup("94117");
+      circle_15._popup.options.maxWidth = 300;
+      map.addLayer(circle_15)
+      
+      var circle_16 = L.circle([37.7822891, -122.463708], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_16.bindPopup("94118");
+      circle_16._popup.options.maxWidth = 300;
+      map.addLayer(circle_16)
+      
+      var circle_17 = L.circle([37.7813454, -122.497668], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_17.bindPopup("94121");
+      circle_17._popup.options.maxWidth = 300;
+      map.addLayer(circle_17)
+      
+      var circle_18 = L.circle([37.7597481, -122.4750292], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_18.bindPopup("94122");
+      circle_18._popup.options.maxWidth = 300;
+      map.addLayer(circle_18)
+      
+      var circle_19 = L.circle([37.8020405, -122.4382307], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_19.bindPopup("94123");
+      circle_19._popup.options.maxWidth = 300;
+      map.addLayer(circle_19)
+      
+      var circle_20 = L.circle([37.7304167, -122.384425], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_20.bindPopup("94124");
+      circle_20._popup.options.maxWidth = 300;
+      map.addLayer(circle_20)
+      
+      var circle_21 = L.circle([37.734646, -122.463708], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_21.bindPopup("94127");
+      circle_21._popup.options.maxWidth = 300;
+      map.addLayer(circle_21)
+      
+      var circle_22 = L.circle([37.793323, -122.4665384], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_22.bindPopup("94129");
+      circle_22._popup.options.maxWidth = 300;
+      map.addLayer(circle_22)
+      
+      var circle_23 = L.circle([37.7401042, -122.4382307], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_23.bindPopup("94131");
+      circle_23._popup.options.maxWidth = 300;
+      map.addLayer(circle_23)
+      
+      var circle_24 = L.circle([37.7181398, -122.4863492], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_24.bindPopup("94132");
+      circle_24._popup.options.maxWidth = 300;
+      map.addLayer(circle_24)
+      
+      var circle_25 = L.circle([37.8059887, -122.4099154], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_25.bindPopup("94133");
+      circle_25._popup.options.maxWidth = 300;
+      map.addLayer(circle_25)
+      
+      var circle_26 = L.circle([37.7202042, -122.4099154], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_26.bindPopup("94134");
+      circle_26._popup.options.maxWidth = 300;
+      map.addLayer(circle_26)
+      
+      var circle_27 = L.circle([37.7748363, -122.3872576], 500, {
+                            color: '#980043',
+                            fillColor: '#980043',
+                            fillOpacity: 0.2
+                            });
+      circle_27.bindPopup("94158");
+      circle_27._popup.options.maxWidth = 300;
+      map.addLayer(circle_27)
+      
+
+      
+
+      
+
+      
+
+      
+
+
+
+   </script>
+
+</body>
